@@ -4,7 +4,13 @@ const dotenv = require("dotenv");
 
 dotenv.config();
 const app = express();
-app.use(cors({ origin: "*" }));
+app.use(
+  cors({
+    origin: "https://rkm-app-payment-gateway-4wm2g3n26-rushikesh-mishras-projects.vercel.app",
+    credentials: true,
+  })
+);
+
 app.use(express.json());
 
 const paymentRoutes = require("./routes/paymentRoutes");

@@ -4,9 +4,21 @@ const dotenv = require("dotenv");
 
 dotenv.config();
 const app = express();
+const allowedOrigins = [
+  "https://rkm-app-payment-gateway.vercel.app",
+  "https://rkm-app-payment-gateway-4wm2g3n26-rushikesh-mishras-projects.vercel.app",
+  "http://localhost:5173", 
+];
+
 app.use(
   cors({
-    origin: "https://rkm-app-payment-gateway-4wm2g3n26-rushikesh-mishras-projects.vercel.app",
+    origin: function (origin, callback) {
+      if (!origin || allowedOrigins.includes(origin)) {
+        callback(null, true);
+      } else {
+        callback(new Error("CORS not allowed from this origin"));
+      }
+    },
     credentials: true,
   })
 );
